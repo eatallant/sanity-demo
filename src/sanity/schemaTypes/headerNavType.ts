@@ -1,5 +1,5 @@
-import {MenuIcon, LinkIcon} from '@sanity/icons'
-import {defineField, defineType} from 'sanity'
+import { MenuIcon, LinkIcon } from '@sanity/icons';
+import { defineField, defineType } from 'sanity';
 
 export const headerNavType = defineType({
   name: 'headerNav',
@@ -17,7 +17,7 @@ export const headerNavType = defineType({
           name: 'internalLink',
           title: 'Internal Link',
           type: 'reference',
-          to:[{ type: 'page'}]
+          to: [{ type: 'page' }]
         },
         {
           name: 'externalLink',
@@ -26,7 +26,7 @@ export const headerNavType = defineType({
           type: 'object',
           fields: [
             defineField({
-              name: 'externalLink',
+              name: 'href',
               title: 'URL',
               description: 'Enter the full url',
               type: 'url'
@@ -38,14 +38,14 @@ export const headerNavType = defineType({
             })
           ]
         }
-      ],
+      ]
     })
   ],
   preview: {
     prepare() {
       return {
-        title: 'Main Header Nav Items',
-      }
-    },
+        title: 'Main Header Nav Items'
+      };
+    }
   }
-})
+});
