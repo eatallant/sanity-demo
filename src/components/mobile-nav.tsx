@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Link from "next/link";
+import React, { useState } from 'react';
+import Link from 'next/link';
 
 import {
   NavigationMenu,
@@ -10,13 +10,13 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "./ui/sheet";
-import { Button } from "./ui/button";
-import { Icons } from "./icons";
+  navigationMenuTriggerStyle
+} from '@/components/ui/navigation-menu';
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from './ui/sheet';
+import { Button } from './ui/button';
+import { Icons } from './icons';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 type NavItem = {
   title: string;
@@ -37,35 +37,35 @@ interface MobileNavProps {
 
 const linkList: (NavItem | NavLink)[] = [
   {
-    title: "Products",
+    title: 'Products',
     links: [
       {
-        title: "Web Design",
-        href: "/",
+        title: 'Web Design',
+        href: '/'
       },
       {
-        title: "SEO",
-        href: "/",
-      },
-    ],
+        title: 'SEO',
+        href: '/'
+      }
+    ]
   },
   {
-    title: "Resources",
+    title: 'Resources',
     links: [
       {
-        title: "FAQ",
-        href: "/",
+        title: 'FAQ',
+        href: '/'
       },
       {
-        title: "Documentation",
-        href: "/",
-      },
-    ],
+        title: 'Documentation',
+        href: '/'
+      }
+    ]
   },
   {
-    title: "Contact",
-    href: "/",
-  },
+    title: 'Contact',
+    href: '/'
+  }
 ];
 
 function isNavItem(item: NavItem | NavLink): item is NavItem {
@@ -79,16 +79,16 @@ export function MobileNav({ className }: MobileNavProps): React.JSX.Element {
     <div className={className}>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Button variant='ghost'>
+          <Button variant="ghost">
             <Icons.menu />
           </Button>
         </SheetTrigger>
-        <SheetContent className='flex flex-col px-1 whitespace-normal text-wrap'>
+        <SheetContent className="flex flex-col px-1 whitespace-normal text-wrap">
           <NavigationMenu
             mobile
-            className='items-start whitespace-normal justify-normal text-wrap'
+            className="items-start whitespace-normal justify-normal text-wrap"
           >
-            <NavigationMenuList className='grid gap-3 space-x-0'>
+            <NavigationMenuList className="grid gap-3 space-x-0">
               {linkList.map((item, index) => {
                 return isNavItem(item)
                   ? renderNavItem(item, index)
@@ -104,15 +104,15 @@ export function MobileNav({ className }: MobileNavProps): React.JSX.Element {
 
 function renderNavItem(item: NavItem, index: number) {
   return (
-    <NavigationMenuItem className='px-0 mx-0' key={index}>
+    <NavigationMenuItem className="px-0 mx-0" key={index}>
       <NavigationMenuTrigger
         onPointerMove={preventHover}
         onPointerLeave={preventHover}
       >
         {item.title}
       </NavigationMenuTrigger>
-      <NavigationMenuContentVertical className='' onPointerLeave={preventHover}>
-        <ul className='pl-4'>
+      <NavigationMenuContentVertical className="" onPointerLeave={preventHover}>
+        <ul className="pl-4">
           {item.links.map((link, index) => renderNavLink(link, index))}
         </ul>
       </NavigationMenuContentVertical>
@@ -125,9 +125,9 @@ function renderNavLink(link: NavLink, index: number) {
     <NavigationMenuItem key={index}>
       <Link href={link.href} legacyBehavior passHref>
         <NavigationMenuLink
-          className={cn(navigationMenuTriggerStyle(), "w-auto")}
+          className={cn(navigationMenuTriggerStyle(), 'w-auto')}
         >
-          <SheetClose className='text-left'>{link.title}</SheetClose>
+          <SheetClose className="text-left">{link.title}</SheetClose>
         </NavigationMenuLink>
       </Link>
     </NavigationMenuItem>

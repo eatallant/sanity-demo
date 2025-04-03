@@ -1,8 +1,8 @@
-import React from "react";
-import { cn } from "@/lib/utils";
-import Image, { type StaticImageData } from "next/image";
-import Link from "next/link";
-import { Button } from "./ui/button";
+import React from 'react';
+import { cn } from '@/lib/utils';
+import Image, { type StaticImageData } from 'next/image';
+import Link from 'next/link';
+import { Button } from './ui/button';
 
 type cta = {
   text: string;
@@ -23,35 +23,35 @@ export function Hero({
   heading,
   description,
   image,
-  alt = "",
-  className,
+  alt = '',
+  className
 }: HeroProps) {
   return (
     <section
       className={cn(
-        "relative min-h-[60vh] md:min-h-[90vh] container-padding overflow-hidden bg-gray-700 bg-opacity-20",
+        'relative min-h-[60vh] md:min-h-[90vh] container-padding overflow-hidden bg-gray-700 bg-opacity-20',
         className
       )}
-      aria-label='Hero section'
+      aria-label="Hero section"
     >
       {image && (
-        <div className='absolute inset-0 -z-10'>
+        <div className="absolute inset-0 -z-10">
           <Image
-            loading='eager'
+            loading="eager"
             src={image}
             alt={alt}
-            className='object-cover w-full h-full'
+            className="object-cover w-full h-full"
             priority
           />
         </div>
       )}
-      <div className='flex flex-col items-center h-full'>
-        <div className='flex flex-col items-center pb-20'>
-          <h1 className='py-6 font-bold text-white text-9xl'>{heading}</h1>
-          <p className='text-3xl text-white'>{description}</p>
+      <div className="flex flex-col items-center h-full">
+        <div className="flex flex-col items-center pb-20">
+          <h1 className="py-6 font-bold text-white text-9xl">{heading}</h1>
+          <p className="text-3xl text-white">{description}</p>
         </div>
         {cta ? (
-          <Button className=''>
+          <Button className="">
             <Link href={cta.href}>{cta.text}</Link>
           </Button>
         ) : null}
@@ -59,5 +59,3 @@ export function Hero({
     </section>
   );
 }
-
-
