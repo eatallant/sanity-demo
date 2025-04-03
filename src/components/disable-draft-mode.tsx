@@ -1,16 +1,16 @@
 // src/components/DisableDraftMode.tsx
 
-"use client";
+'use client';
 
-import { useTransition } from "react";
-import { useRouter } from "next/navigation";
-import { disableDraftMode } from "@/app/actions";
-import { Button } from "./ui/button";
+import { useTransition } from 'react';
+import { useRouter } from 'next/navigation';
+import { disableDraftMode } from '@/app/actions';
+import { Button } from './ui/button';
 
 export function DisableDraftMode() {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
-  
+
   if (window !== window.parent || !!window.opener) {
     return null;
   }
@@ -24,11 +24,9 @@ export function DisableDraftMode() {
   return (
     <div>
       {pending ? (
-        "Disabling draft mode..."
+        'Disabling draft mode...'
       ) : (
-        <Button onClick={disable}>
-          Disable draft mode
-        </Button>
+        <Button onClick={disable}>Disable draft mode</Button>
       )}
     </div>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import Link from 'next/link';
 
@@ -11,10 +13,9 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu';
+import { type HEADERNAV_QUERYResult } from '@/sanity/types';
 
 import { Icons } from './icons';
-import { HEADERNAV_QUERY } from '@/sanity/lib/queries';
-import { sanityFetch } from '@/sanity/lib/live';
 
 const components: { title: string; href: string }[] = [
   {
@@ -45,32 +46,32 @@ const components: { title: string; href: string }[] = [
 
 interface NavProps {
   className: string;
+  sanityData?: HEADERNAV_QUERYResult;
 }
 
-export async function Nav({ className }: NavProps) {
-  const { data: headerNav } = await sanityFetch({
-    query: HEADERNAV_QUERY
-  });
-
-  console.log(headerNav.links);
+export function Nav({ className, sanityData }: NavProps) {
+  const { navItems } = sanityData ?? {};
 
   return (
     <NavigationMenu className={className}>
       <NavigationMenuList>
         <NavCard />
         <NavSubMenu />
-        <NavLink />
+        {navItems?.map(link => {
+          const { href, title } = link;
+          return <NavLink href={href} title={title} />;
+        })}
       </NavigationMenuList>
     </NavigationMenu>
   );
 }
 
-const NavLink = () => {
+const NavLink = ({ href, title }: { href: string; title: string }) => {
   return (
     <NavigationMenuItem>
-      <Link href="/docs" legacyBehavior passHref>
+      <Link href={href} legacyBehavior passHref>
         <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-          Documentation
+          {title}
         </NavigationMenuLink>
       </Link>
     </NavigationMenuItem>

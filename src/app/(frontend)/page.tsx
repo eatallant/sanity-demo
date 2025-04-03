@@ -1,13 +1,13 @@
-import { ToastButton } from "@/components/ui/toastButton";
-import { Hero } from "@/components/hero";
-import { InfoCard } from "@/components/info-card";
-import { SplitFeature } from "@/components/feature";
-import { Separator } from "@/components/ui/separator";
+import { ToastButton } from '@/components/ui/toastButton';
+import { Hero } from '@/components/hero';
+import { InfoCard } from '@/components/info-card';
+import { SplitFeature } from '@/components/feature';
+import { Separator } from '@/components/ui/separator';
 
-import { Icons } from "@/components/icons";
-import bg from "../../../public/console-table.jpg";
-import beans from "../../../public/coffee-beans.jpg";
-import cup from "../../../public/java-cup.jpg";
+import { Icons } from '@/components/icons';
+import bg from '../../../public/console-table.jpg';
+import beans from '../../../public/coffee-beans.jpg';
+import cup from '../../../public/java-cup.jpg';
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
         heading="Page Title."
         description="This is the description of the page."
       />
-      <section className="flex flex-col items-center gap-10 py-10 bg-indigo-900">
+      <section className="flex flex-col items-center gap-10 py-10 bg-slate-100">
         <h3>Here are some feature cards</h3>
         <div className="flex gap-12 md:flex-row">
           <InfoCard
@@ -40,7 +40,7 @@ export default function Home() {
             icon={<Icons.rocket height={48} width={48} color="#48179c" />}
             title="Feature C"
             position="center"
-            cta={{ href: "/", text: "Example CTA" }}
+            cta={{ href: '/', text: 'Link' }}
           >
             Content describing feature C with a button.
           </InfoCard>
