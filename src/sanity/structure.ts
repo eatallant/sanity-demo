@@ -6,8 +6,22 @@ export const structure: StructureResolver = (S) =>
     .title('Demo')
     .items([
       S.documentTypeListItem("page").title("Pages"),
+      S.listItem()
+        .title("Header")
+        .schemaType('headerNav')
+        .child(
+          S.document()
+            .schemaType('headerNav')
+            .documentId('headerNav')),
       S.divider(),
+      S.listItem()
+        .title('Site Settings')
+        .schemaType('siteSettings')
+        .child(
+          S.document()
+            .schemaType('siteSettings')
+            .documentId('siteSettings')),
       ...S.documentTypeListItems().filter(
-        (item) => item.getId() && !['page'].includes(item.getId()!),
+        (item) => item.getId() && !['page', 'siteSettings', 'headerNav'].includes(item.getId()!),
       ),
     ])
