@@ -83,7 +83,7 @@ export type HeaderNav = {
         [internalGroqTypeReferenceTo]?: 'page';
       }
     | {
-        externalLink?: string;
+        href?: string;
         text?: string;
         _type: 'externalLink';
         _key: string;
@@ -167,12 +167,6 @@ export type Page = {
   };
 };
 
-export type Slug = {
-  _type: 'slug';
-  current?: string;
-  source?: string;
-};
-
 export type PageBuilder = Array<
   | ({
       _key: string;
@@ -239,6 +233,21 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
+export type MediaTag = {
+  _id: string;
+  _type: 'media.tag';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: Slug;
+};
+
+export type Slug = {
+  _type: 'slug';
+  current?: string;
+  source?: string;
+};
+
 export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -250,15 +259,16 @@ export type AllSanitySchemaTypes =
   | TextWithImage
   | Hero
   | Page
-  | Slug
   | PageBuilder
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
   | SanityAssetSourceData
-  | SanityImageMetadata;
+  | SanityImageMetadata
+  | MediaTag
+  | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./src/app/(frontend)/[slug]/page.tsx
+// Source: ./src/sanity/lib/queries.ts
 // Variable: PAGE_QUERY
 // Query: *[_type == "page" && slug.current == $slug][0]{  ...,  content[]{    ...  }}
 export type PAGE_QUERYResult = {
@@ -320,76 +330,24 @@ export type PAGE_QUERYResult = {
     _type: 'image';
   };
 } | null;
-
-// Source: ./src/components/nav.tsx
 // Variable: HEADERNAV_QUERY
-// Query: *[_type == "page" && slug.current == $slug][0]{  ...,  content[]{    ...  }}
+// Query: *[_type == "headerNav"][0]{  "navItems": links[]{    _type == "internalLink" => {      "type": "internal",      "href": "/"+@->slug.current,      "title": @->title    },    _type == "externalLink" => {      "type": "external",      href,      "title": text    }  }}
 export type HEADERNAV_QUERYResult = {
-  _id: string;
-  _type: 'page';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  content: Array<
+  navItems: Array<
+    | {}
     | {
-        _key: string;
-        _type: 'hero';
-        heading?: string;
-        description?: string;
-        image?: {
-          asset?: {
-            _ref: string;
-            _type: 'reference';
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-          };
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          alt?: string;
-          _type: 'image';
-        };
-      }
-    | {
-        _key: string;
-        _type: 'textWithImage';
-        heading?: string;
-        description?: string;
-        imagePosition?: 'left' | 'right';
-        image?: {
-          asset?: {
-            _ref: string;
-            _type: 'reference';
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-          };
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          alt?: string;
-          _type: 'image';
-        };
+        type: 'external';
+        href: string | null;
+        title: string | null;
       }
   > | null;
-  mainImage?: {
-    asset?: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: 'image';
-  };
 } | null;
 
 // Query TypeMap
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    '*[_type == "page" && slug.current == $slug][0]{\n  ...,\n  content[]{\n    ...\n  }\n}':
-      | PAGE_QUERYResult
-      | HEADERNAV_QUERYResult;
+    '*[_type == "page" && slug.current == $slug][0]{\n  ...,\n  content[]{\n    ...\n  }\n}': PAGE_QUERYResult;
+    '*[_type == "headerNav"][0]{\n  "navItems": links[]{\n    _type == "internalLink" => {\n      "type": "internal",\n      "href": "/"+@->slug.current,\n      "title": @->title\n    },\n    _type == "externalLink" => {\n      "type": "external",\n      href,\n      "title": text\n    }\n  }\n}': HEADERNAV_QUERYResult;
   }
 }

@@ -9,5 +9,16 @@ export const PAGE_QUERY =
 }`);
 
 export const HEADERNAV_QUERY = defineQuery(`*[_type == "headerNav"][0]{
-  links[]
+  "navItems": links[]{
+    _type == "internalLink" => {
+      "type": "internal",
+      "href": "/"+@->slug.current,
+      "title": @->title
+    },
+    _type == "externalLink" => {
+      "type": "external",
+      href,
+      "title": text
+    }
+  }
 }`);
